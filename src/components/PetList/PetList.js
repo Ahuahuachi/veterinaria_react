@@ -13,10 +13,16 @@ class PetList extends Component {
     }
 
     componentDidMount() {
+
+        // Obtiene los datos de la tabla Pets
         fetch('https://react-test-22eeb.firebaseio.com/pets.json')
             .then((res) => res.json())
             .then((json) => {
+
+                // Declara array vacío
                 let petsArray = [];
+
+                // Agregar al array petsArray cada uno de los elementos de la tabla
                 for (let key in json) {
                     petsArray.push({
                         'key': key,
@@ -24,6 +30,7 @@ class PetList extends Component {
                     });
                 }
 
+                // Dar valor al estado con el contenido de la tabla
                 this.setState({
                     petList: petsArray
                 })
@@ -31,7 +38,10 @@ class PetList extends Component {
     }
 
     render() {
+        // Obtiene el valor de petList del estado
         let { petList } = this.state;
+
+        // Construye las filas de la tabla como componentes Pet
         let showPets = petList.map((pet) => {
             let { key, info } = pet;
 
@@ -47,6 +57,7 @@ class PetList extends Component {
             )
         })
 
+        // Regresa la tabla construida
         return (
             <table>
                 <thead>
@@ -59,6 +70,7 @@ class PetList extends Component {
                     </tr>
                 </thead>
                 <tbody>
+                    {/* Regresa la lista de mascotas */}
                     {showPets}
                 </tbody>
             </table >
